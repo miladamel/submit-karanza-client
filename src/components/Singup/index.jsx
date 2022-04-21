@@ -1,8 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import styles from "./styles.module.css";
-import Input from 'react-phone-number-input/input'
 
 const Signup = () => {
 
@@ -20,10 +19,12 @@ const Signup = () => {
 		setData({ ...data, [input.name]: input.value });
 	};
 
+
+
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		try {
-			const url = "http://localhost:8080/api/users";
+			const url = "http://localhost:3005/api/users";
 			const { data: res } = await axios.post(url, data);
 			 navigate("/success");
 			console.log(res.message);
@@ -37,6 +38,35 @@ const Signup = () => {
 			}
 		}
 	};
+
+	const handleInput = () => {
+
+		var
+		persianNumbers = [/۰/g, /۱/g, /۲/g, /۳/g, /۴/g, /۵/g, /۶/g, /۷/g, /۸/g, /۹/g],
+		fixNumbers = function (str){
+			if(typeof str === 'string')
+			{
+				for(var i=0; i<10; i++)
+				{
+				str = str.replace(persianNumbers[i], i);
+				}
+			}
+			return str;
+		};
+		var mystr = document.getElementById('number').value 
+		const value = fixNumbers(mystr);
+		 document.getElementById('number').value =  value ;
+
+
+
+		// var
+		//  englishNumber = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'],
+		// persianNumber = ['۰', '۱', '۲', '۳', '۴', '۵', '۶' , '۷', '۸', '۹'],
+		// x = '۰۹۳۶۱۲۵۹۸۰۹';
+		//  for(let i = 0; i <= 10 ; i++) {
+		//  	console.log(x.replace(persianNumber[i],i));
+		//  }
+	}
 
 	return (
 		<div className={styles.signup_container}>
@@ -77,11 +107,16 @@ const Signup = () => {
 						<input
 							type="string"
 							placeholder="شماره تلفن"
+							id="number"
 							name="number"
 							onChange={handleChange}
+							onKeyUp={handleInput}
 							value={data.number}
 							className={styles.input}
 						/>
+						<p id='demo'>
+
+						</p>
 						{error && <div className={styles.error_msg}>{error}</div>}
 						<button type="submit" className={styles.green_btn}>
 							ثبت

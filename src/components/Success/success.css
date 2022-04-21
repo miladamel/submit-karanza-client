@@ -1,0 +1,12 @@
+.suc{
+    display: flex;
+    justify-content:center;
+    align-items: center;
+    background-color: rgb(179, 206, 60);
+    flex-direction: column;
+}
+.buttonBack{
+    background-color: white;
+    border-radius: 20px;
+    font-size: 15px;
+}
